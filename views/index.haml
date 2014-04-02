@@ -1,0 +1,16 @@
+%h1 Recent Public Tweets
+%h2 What everyone on Twitter is talking about
+- @tweets.each do |status|
+  %p
+    %img(src="#{status.picture}")
+    %a{:href => "http://twitter.com/#{status.user}"} #{status.user}
+    = status.text
+  %p
+    - if Time.now.sec - status.created_at.sec < 60
+      less than a minute ago from #{status.source}
+    - elsif Time.now.hour - status.created_at.hour > 1
+      Time.now.min - status.created_at.min minutes ago
+    - elsif Time.now.hour - status.created_at < 2
+      1 hour ago from #status.source
+    - else
+      #{Time.now.hour - status.created_at.hour} hours ago from #status.source
